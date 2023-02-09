@@ -17,8 +17,6 @@
                     <%= product.description %>
                 </p>
             </div>
-            <form action="/cart" method="post">
-                <button class="btn" type="submit">Add to cart</button>
-            </form>
+            <%- include('../includes/add-to-cart.ejs') %>
         </main>
         <%- include('../includes/end.ejs') %>
