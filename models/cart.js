@@ -31,8 +31,36 @@ cart.products[existingProductIndex]=updatedProduct;
  cart.totalPrice=cart.totalPrice+ +productPrice;
  fs.writeFile(p,JSON.stringify(cart),err=>{
     // console.log(err);
- })
-    })
-    //Add new product
+ });
+    });
  }
+static deleteProduct(id,productPrice){
+    fs.readFile(p,(err,fileContent)=>{
+        if(err){
+            return;
+        }
+    const updatedcart={...JSON.parse(fileContent)};
+    const product=updatedcart.products.find(prod=>prod.id===id);
+    const productQty=product.qty;
+    updatedcart.products=updatedcart.products.filter(
+        prod=>prod.id!==id
+        );
+        updatedcart.totalPrice=updatedcart.totalPrice-productPrice*productQty;
+        fs.writeFile(p,JSON.stringify(updatedcart),err=>{
+            console.log(err);
+         });    
+    });
+}
+
+static  getCart(cb){
+    fs.readFile(p,(err,fileContent)=>{
+        const cart=JSON.parse(fileContent);
+       if(err){
+        cb(null);
+       }else{
+        cb(cart); 
+       }
+       
+    })
+}
 };
